@@ -30,6 +30,8 @@ modeSelect.addEventListener("change", () => {
 
 // Start the game and set up the selected mode
 startGameButton.addEventListener("click", () => {
+    // Reset the values to the starting value when game starts
+    resetGame();
     if (modeSelect.value === "best-of") {
         maxRounds = parseInt(roundsInput.value);
         if (isNaN(maxRounds) || maxRounds < 1) {
@@ -77,10 +79,50 @@ function determineWinner(userChoice, computerChoice) {
 // Handle the button clicks for Rock, Paper and Scissors
 function playGame(userChoice) {
     // Check if the maxRounds is entered and if the rounds are over
+    if (maxRounds && rounds >= maxRounds) {
+        if (userScore === computerScore) {
+            resultDiv.textContent = `Game Over! It's a draw!`;
+            gameContentDiv.style.display = "none";
+        } else {
+            resultDiv.textContent = `Game Over! ${userScore > computerScore ? "You win the game!" : "Computer wins the game!"}`;
+            gameContentDiv.style.display = "none";
+        }
+        return;
+    }
     // Display the result of the play
+    const computerChoice = getComputerChoice();
+    const result = determineWinner(userChoice, computerChoice);
+    resultDiv.textContent = `You chose ${userChoice}. Computer chose ${computerChoice}. ${result}`;
+    
+    rounds++;
+
     // Check if the game should end in best of x mode
+    if (maxRounds && rounds >= maxRounds) {
+        if (userScore === computerScore) {
+            const finalResult = "Play again to decide the final winner!";
+            resultDiv.textContent += `Game Over! ${finalResult}`;
+            gameContentDiv.style.display = "none";
+            return;
+        } else {
+            const finalResult = userScore > computerScore ? "You are the overall winner!" : "Computer is the overall winner!";
+            resultDiv.textContent += `Game Over! ${finalResult}`;
+            gameContentDiv.style.display = "none";
+            return;
+        }
+    }
 }
 
 
 // Add Event Listeners
+rockButton.addEventListener("click", () => playGame("Rock"));
+paperButton.addEventListener("click", () => playGame("Paper"));
+scissorsButton.addEventListener("click", () => playGame("Scissors"));
+
 // Reset the game
+function resetGame() {
+    userScore = 0;
+    computerScore = 0;
+    rounds = 0;
+    scoreDiv.textContent = `Your Score: ${userScore} | Computer Score: ${computerScore}`;
+    resultDiv.textContent = "";
+}
