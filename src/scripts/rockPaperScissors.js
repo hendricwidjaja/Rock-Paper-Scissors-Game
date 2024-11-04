@@ -3,7 +3,11 @@ const rockButton = document.getElementById("rock");
 const paperButton = document.getElementById("paper");
 const scissorsButton = document.getElementById("scissors");
 const resultDiv = document.getElementById("result");
+const scoreDiv = document.getElementById("score");
 
+// Initialise the scores to be 0.
+let userScore = 0;
+let computerScore = 0;
 
 // Get the computer choice
 function getComputerChoice() {
@@ -23,9 +27,13 @@ function determineWinner(userChoice, computerChoice) {
         (userChoice === "Paper" && computerChoice === "Rock") ||
         (userChoice === "Scissors" && computerChoice === "Paper")
     ) {
+        userScore++;
+        scoreDiv.textContent = `Your Score: ${userScore} | Computer Score: ${computerScore}`;
         return "You win!";
     } else {
-        return "You lose!";
+        computerScore++;
+        scoreDiv.textContent = `Your Score: ${userScore} | Computer Score: ${computerScore}`;
+        return "Computer wins!";
     }
 }
 
@@ -33,17 +41,17 @@ function determineWinner(userChoice, computerChoice) {
 rockButton.addEventListener("click", () => {
     const computerChoice = getComputerChoice();
     const result = determineWinner("Rock", computerChoice);
-    resultDiv.textContent = `You chose Rock. Computer chose ${computerChoice}. ${result}`
-})
+    resultDiv.textContent = `You chose Rock. Computer chose ${computerChoice}. ${result}`;
+});
 
 paperButton.addEventListener("click", () => {
     const computerChoice = getComputerChoice();
     const result = determineWinner("Paper", computerChoice);
-    resultDiv.textContent = `You chose Paper. Computer chose ${computerChoice}. ${result}`
-})
+    resultDiv.textContent = `You chose Paper. Computer chose ${computerChoice}. ${result}`;
+});
 
 scissorsButton.addEventListener("click", () => {
     const computerChoice = getComputerChoice();
     const result = determineWinner("Scissors", computerChoice);
-    resultDiv.textContent = `You chose Scissors. Computer chose ${computerChoice}. ${result}`
-})
+    resultDiv.textContent = `You chose Scissors. Computer chose ${computerChoice}. ${result}`;
+});
