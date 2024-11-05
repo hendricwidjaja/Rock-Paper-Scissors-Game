@@ -1,5 +1,3 @@
-# rockPaperScissorsGame
-
 # Rock Paper Scissors Game
 
 Logic:
