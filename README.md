@@ -9,7 +9,6 @@ Logic:
 - Add a feature: Keep Score
 
 - Add more features:
-
   - Game Modes:
     - Best-of-x
       - User Input: Prompt the user to enter the desired number of rounds.
